@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "328518221576",
+    "project_id": "ecommerce-87b63",
+    "storage_bucket": "ecommerce-87b63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328518221576:android:e307f1bf4c70a33a5a36bd",
+        "android_client_info": {
+          "package_name": "com.ecommercecustomer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328518221576-7e7i7qmb4r9e96a70s23biapkv3stoun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7qGJPp5Mz2X90ULgWOPs0-YVYodpS4F8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328518221576-7e7i7qmb4r9e96a70s23biapkv3stoun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "328518221576-ipif8i9ut3hdmesdrk0fal6h66n9pgin.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.ECommerceFirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
