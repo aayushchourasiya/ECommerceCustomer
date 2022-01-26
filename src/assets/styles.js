@@ -68,6 +68,7 @@ export const MainStyles = StyleSheet.create({
   linkText: {
     fontSize: 20,
     fontFamily: fontFamily.primary,
+    textDecorationLine:'underline',
     color: colors.lightWhite,
     fontWeight: '600',
   },

@@ -9,6 +9,7 @@ import auth from '@react-native-firebase/auth';
 
 import {colors, fontFamily} from './src/assets/constants';
 import {useSelector} from 'react-redux';
+import {HeaderLeftButton} from './src/Components/Reusable';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -19,7 +20,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={MainStyles.mainBackground}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="light-content" backgroundColor={colors.black} />
         <Stack.Navigator>
           {auth().currentUser ? (
             <>
@@ -27,7 +28,7 @@ const App = () => {
                 name="BottomTabs"
                 component={BottomTabs}
                 options={{
-                  headerShown:false
+                  headerShown: false,
                 }}
               />
             </>
@@ -41,14 +42,17 @@ const App = () => {
               <Stack.Screen
                 name="SignUp"
                 component={Signup}
-                options={{
+                options={({navigation}) => ({
+                  headerLeft: () => (
+                    <HeaderLeftButton onPress={() => navigation.goBack()} />
+                  ),
                   headerStyle: {backgroundColor: colors.black},
                   headerTitleStyle: {
                     color: colors.lightWhite,
                     fontFamily: fontFamily.primary,
                     fontWeight: '600',
                   },
-                }}
+                })}
               />
             </>
           )}

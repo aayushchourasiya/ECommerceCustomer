@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {MainStyles} from '../../assets/styles';
 import {ButtonLarge, TextInputCustom} from '../Reusable';
 import {colors, fontFamily} from '../../assets/constants';
@@ -13,6 +13,11 @@ export const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonState, setButtonState] = useState(false);
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -77,6 +82,8 @@ export const Signup = () => {
           placeholder="Enter Your Name Here!"
           value={name}
           onChangeText={text => setName(text)}
+          onEndEditing={()=>emailRef.current.focus()}
+          returnKeyType='next'
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>Email</Text>
         <TextInputCustom
@@ -85,6 +92,9 @@ export const Signup = () => {
           value={email}
           autoCapitalize="none"
           onChangeText={text => setEmail(text)}
+          customRef={emailRef}
+          onEndEditing={()=>passwordRef.current.focus()}
+          returnKeyType='next'
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>Password</Text>
         <TextInputCustom
@@ -93,7 +103,10 @@ export const Signup = () => {
           value={password}
           autoCapitalize="none"
           secureTextEntry
+          customRef={passwordRef}
           onChangeText={text => setPassword(text)}
+          onEndEditing={()=>confirmPasswordRef.current.focus()}
+          returnKeyType='next'
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>
           Confirm Password
@@ -103,7 +116,9 @@ export const Signup = () => {
           placeholder="Confirm Your Password Here!"
           autoCapitalize="none"
           value={confirmPassword}
+          customRef={confirmPasswordRef}
           onChangeText={text => setConfirmPassword(text)}
+          returnKeyType='done'
         />
         <Text style={[MainStyles.textMedium, styles.textDanger]}>
           {password !== confirmPassword ? "Passwords don't match!" : error}
