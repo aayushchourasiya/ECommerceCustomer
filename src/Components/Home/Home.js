@@ -1,11 +1,14 @@
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {MainStyles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export const Home = () => {
-  const categories = ['Technology', 'Kitchen', 'Furniture'];
+  const categories = [
+    {name: 'Technology', image: require('../../assets/images/technology.png')},
+    {name: 'Kitchen', image: require('../../assets/images/kitchen.png')},
+    {name: 'Furniture', image: require('../../assets/images/furniture.png')},
+  ];
   return (
     <View style={MainStyles.mainBackground}>
       <View>
@@ -13,7 +16,7 @@ export const Home = () => {
         <FlatList
           horizontal
           data={categories}
-          style={{marginTop:20}}
+          style={{marginTop: 20}}
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
@@ -22,11 +25,13 @@ export const Home = () => {
                   {
                     marginHorizontal: 20,
                     width: 300,
-                    height: 150,
-                    justifyContent: 'center',
+                    height: 200,
+                    justifyContent: 'space-between',
                   },
-                ]}>
-                <Text style={MainStyles.textLarge}>{item}</Text>
+                ]}
+                key={index}>
+                <Image source={item.image} style={{width:300,height:150}} />
+                <Text style={[MainStyles.textMedium,{textAlign:'right',marginRight:10}]}>{item.name}</Text>
               </TouchableOpacity>
               // <ButtonLarge
               //   style={{

@@ -1,8 +1,8 @@
 import {createDrawerNavigator, useDrawerStatus} from '@react-navigation/drawer';
 import {DrawerActions} from '@react-navigation/native';
 import React from 'react';
-import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../assets/constants';
 import {MainStyles} from '../../assets/styles';
 import {Home, Profile} from '../Home/';
@@ -16,13 +16,10 @@ export const DrawerNavigations = ({navigation}) => {
       <TouchableOpacity
         style={{margin: 10}}
         onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-        <Image
-          style={{width: 20, height: 20}}
-          source={
-            isDrawerOpen
-              ? require('../../assets/images/back.png')
-              : require('../../assets/images/menu.png')
-          }
+        <Icon
+          name={isDrawerOpen ? 'menu-unfold' : 'menu-fold'}
+          size={25}
+          color={colors.lightWhite}
         />
       </TouchableOpacity>
     );
@@ -49,9 +46,10 @@ export const DrawerNavigations = ({navigation}) => {
           drawerActiveBackgroundColor: colors.black,
           drawerActiveTintColor: colors.lightWhite,
           drawerIcon: () => (
-            <Image
-              source={require('../../assets/images/user.png')}
-              style={{width: 50, height: 50}}
+            <Icon
+              name="user"
+              size={50}
+              color={colors.lightWhite}
             />
           ),
         }}

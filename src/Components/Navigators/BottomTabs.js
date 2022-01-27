@@ -4,8 +4,8 @@ import {CartHome} from '../Cart';
 import {Settings} from '../Settings';
 import {DrawerNavigations} from '.';
 import {colors} from '../../assets/constants';
-import {Image} from 'react-native';
-import { MainStyles } from '../../assets/styles';
+import {MainStyles} from '../../assets/styles';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export const BottomTabs = () => {
   const Tab = createBottomTabNavigator();
@@ -14,18 +14,16 @@ export const BottomTabs = () => {
       screenOptions={{
         tabBarStyle: {backgroundColor: colors.black},
         tabBarShowLabel: false,
-        tabBarActiveBackgroundColor: colors.completeBlack,
+        tabBarActiveTintColor: colors.activeTab,
+        tabBarInactiveTintColor: colors.lightWhite
       }}>
       <Tab.Screen
         name="DrawerNavigations"
         component={DrawerNavigations}
         options={{
           headerShown: false,
-          tabBarIcon: () => (
-            <Image
-              source={require('../../assets/images/home.png')}
-              style={{width: 30, height: 30}}
-            />
+          tabBarIcon: ({color}) => (
+            <Icon name="home" size={30} color={color} />
           ),
         }}
       />
@@ -35,12 +33,9 @@ export const BottomTabs = () => {
         options={{
           headerStyle: {backgroundColor: colors.black},
           headerTitleStyle: MainStyles.textMedium,
-          headerTitle:'Your Products',
-          tabBarIcon: () => (
-            <Image
-              source={require('../../assets/images/cart.png')}
-              style={{width: 30, height: 30}}
-            />
+          headerTitle: 'Your Products',
+          tabBarIcon: ({color}) => (
+            <Icon name="shoppingcart" size={30} color={color} />
           ),
         }}
       />
@@ -50,11 +45,8 @@ export const BottomTabs = () => {
         options={{
           headerStyle: {backgroundColor: colors.black},
           headerTitleStyle: MainStyles.textMedium,
-          tabBarIcon: () => (
-            <Image
-              source={require('../../assets/images/settings.png')}
-              style={{width: 30, height: 30}}
-            />
+          tabBarIcon: ({color}) => (
+            <Icon name="setting" size={30} color={color} />
           ),
         }}
       />

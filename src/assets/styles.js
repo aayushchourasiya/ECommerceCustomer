@@ -21,6 +21,7 @@ export const MainStyles = StyleSheet.create({
   textMedium: {
     fontSize: 20,
     color: colors.lightWhite,
+    textAlign: 'center',
     fontFamily: fontFamily.primary,
     fontWeight:'600'
   },

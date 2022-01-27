@@ -5,6 +5,7 @@ const colors = {
   lightWhite: '#ADEFD1FF',
   gray: '#808080',
   red: '#FF0000',
+  activeTab: '#33F7FF',
 };
 const fontFamily = {
   title: 'SedgwickAve-Regular',
