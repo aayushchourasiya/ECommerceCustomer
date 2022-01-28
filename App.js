@@ -10,11 +10,16 @@ import auth from '@react-native-firebase/auth';
 import {colors, fontFamily} from './src/assets/constants';
 import {useSelector} from 'react-redux';
 import {HeaderLeftButton} from './src/Components/Reusable';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {ProductCategory} from './src/Components/Products/ProductCategory';
 
 const App = () => {
+  Icon.loadFont();
   const Stack = createNativeStackNavigator();
 
   const update = useSelector(state => state.updateData);
+
+  const productCategory = useSelector(state=>state.productCategory)
 
   useEffect(() => {}, [update]);
   return (
@@ -30,6 +35,18 @@ const App = () => {
                 options={{
                   headerShown: false,
                 }}
+              />
+              <Stack.Screen
+                name="ProductCategory"
+                component={ProductCategory}
+                options={({navigation}) => ({
+                  headerLeft: () => (
+                    <HeaderLeftButton onPress={() => navigation.goBack()} />
+                  ),
+                  headerTitle:productCategory,
+                  headerStyle: {backgroundColor: colors.black},
+                  headerTitleStyle: {color: colors.lightWhite},
+                })}
               />
             </>
           ) : (

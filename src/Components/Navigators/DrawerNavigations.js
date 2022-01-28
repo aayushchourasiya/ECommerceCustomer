@@ -24,11 +24,11 @@ export const DrawerNavigations = ({navigation}) => {
       </TouchableOpacity>
     );
   };
-
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       screenOptions={{
+        swipeEnabled:false,
         headerLeft: () => headerLeft(),
         headerStyle: {backgroundColor: colors.black},
         headerTitleStyle: MainStyles.textMedium,
