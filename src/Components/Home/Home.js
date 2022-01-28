@@ -3,23 +3,36 @@ import React from 'react';
 import {MainStyles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
 
-export const Home = () => {
+export const Home = ({navigation}) => {
   const categories = [
     {name: 'Technology', image: require('../../assets/images/technology.png')},
     {name: 'Kitchen', image: require('../../assets/images/kitchen.png')},
     {name: 'Furniture', image: require('../../assets/images/furniture.png')},
   ];
+
+  const showProducts = (name) => {
+    navigation.navigate("ProductCategory",{name:name})
+  }
+
   return (
     <View style={MainStyles.mainBackground}>
       <View>
-        <Text style={MainStyles.textLarge}>Categories</Text>
+        <Text
+          style={[
+            MainStyles.textLarge,
+            {alignSelf: 'flex-start', marginLeft: 20, marginTop: 20},
+          ]}>
+          Categories
+        </Text>
         <FlatList
+          showsHorizontalScrollIndicator={false}
           horizontal
           data={categories}
           style={{marginTop: 20}}
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
+              onPress={()=>showProducts(item.name)}
                 style={[
                   MainStyles.buttonLarge,
                   {
@@ -30,8 +43,17 @@ export const Home = () => {
                   },
                 ]}
                 key={index}>
-                <Image source={item.image} style={{width:300,height:150}} />
-                <Text style={[MainStyles.textMedium,{textAlign:'right',marginRight:10}]}>{item.name}</Text>
+                <Image
+                  source={item.image}
+                  style={{width: 280, height: 150, alignSelf: 'center'}}
+                />
+                <Text
+                  style={[
+                    MainStyles.textMedium,
+                    {textAlign: 'right', marginRight: 10},
+                  ]}>
+                  {item.name}
+                </Text>
               </TouchableOpacity>
               // <ButtonLarge
               //   style={{

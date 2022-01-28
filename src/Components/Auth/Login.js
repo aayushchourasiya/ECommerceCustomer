@@ -33,6 +33,12 @@ export const Login = ({navigation}) => {
                 setButtonState(false);
                 dispatch(updateData(!update));
                 dispatch(currentUser(email));
+              })
+              .catch(e => {
+                alert(
+                  'Something is wrong Please check your email or password!',
+                );
+                setButtonState(false);
               });
           } else {
             alert(

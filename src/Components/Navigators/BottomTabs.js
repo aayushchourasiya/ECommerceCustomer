@@ -11,20 +11,19 @@ export const BottomTabs = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
+      initialRouteName="DrawerNavigations"
       screenOptions={{
         tabBarStyle: {backgroundColor: colors.black},
         tabBarShowLabel: false,
         tabBarActiveTintColor: colors.activeTab,
-        tabBarInactiveTintColor: colors.lightWhite
+        tabBarInactiveTintColor: colors.lightWhite,
       }}>
       <Tab.Screen
         name="DrawerNavigations"
         component={DrawerNavigations}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => (
-            <Icon name="home" size={30} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="home" size={30} color={color} />,
         }}
       />
       <Tab.Screen
