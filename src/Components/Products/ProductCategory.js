@@ -1,29 +1,35 @@
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {MainStyles} from '../../assets/styles';
-import {useDispatch} from 'react-redux';
-import {productCategory} from '../../store/action';
 import firestore from '@react-native-firebase/firestore';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export const ProductCategory = ({route}) => {
+export const ProductCategory = ({route,navigation}) => {
   const {name} = route.params;
-  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [state, setState] = useState(false);
   const filterFunction = query => {
+    let arr = [];
     query?.filter(item => {
       const check = item._data.myProducts.filter(object => {
-        return object.category === name;
+        if (object.category === name) {
+          arr = [...arr, object];
+          // setData([...data, object]);
+          return;
+        }
+        return;
       });
-      setData(data.concat(check));
+      // console.log();
+      // setData([...data,...check]);
     });
+    setData(arr);
     setState(prev => !prev);
   };
   useEffect(() => {}, [state]);
+  // useEffect(() => {
+  //   // console.log(">>>>>>>>>",data);
+  // }, [data]);
+
   useEffect(() => {
-    dispatch(productCategory(name));
     firestore()
       .collection('Users')
       .where('role', '==', 'admin')
@@ -37,18 +43,19 @@ export const ProductCategory = ({route}) => {
   }, []);
   return (
     <View style={[MainStyles.mainBackground]}>
-      <FlatList
+      {data.length>0 ? <FlatList
         data={data}
         renderItem={({item, index}) => {
           return (
             <TouchableOpacity
+            onPress={()=>navigation.navigate("ProductDetails",{item:item})}
               key={index}
               style={[
                 MainStyles.buttonLarge,
                 {
-                  marginTop:20,
+                  marginTop: 20,
                   alignSelf: 'center',
-                  width: '80%',
+                  width: '90%',
                   flex: 1,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -59,14 +66,18 @@ export const ProductCategory = ({route}) => {
                 source={{uri: item.image}}
                 style={{width: 100, height: 100}}
               />
-              <View style={{width:"70%",justifyContent:'center'}}>
+              <View style={{width: '70%', justifyContent: 'center'}}>
                 <Text style={MainStyles.textLarge}>{item.name}</Text>
-                <Text style={[MainStyles.textSmall,{textAlign:'center'}]}>{item.description}</Text>
+                <Text style={[MainStyles.textSmall, {textAlign: 'center'}]}>
+                  {item.description.length > 80
+                    ? item.description.slice(0, 80) + '...'
+                    : item.description}
+                </Text>
               </View>
             </TouchableOpacity>
           );
         }}
-      />
+      />: <Text style={[MainStyles.textLarge,{marginTop:50}]}>No Products to show!</Text>}
     </View>
   );
 };

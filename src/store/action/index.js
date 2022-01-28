@@ -11,12 +11,5 @@ const updateData = (update) => {
       payload: user,
     };
   };
-
-  const productCategory = (product) => {
-    return {
-      type: "PRODUCT",
-      payload: product
-    }
-  }
   
-  export { updateData, currentUser ,productCategory};
+  export { updateData, currentUser };

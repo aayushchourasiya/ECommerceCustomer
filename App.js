@@ -11,15 +11,13 @@ import {colors, fontFamily} from './src/assets/constants';
 import {useSelector} from 'react-redux';
 import {HeaderLeftButton} from './src/Components/Reusable';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {ProductCategory} from './src/Components/Products/ProductCategory';
+import {ProductCategory, ProductDetails} from './src/Components/Products/';
 
 const App = () => {
   Icon.loadFont();
   const Stack = createNativeStackNavigator();
 
   const update = useSelector(state => state.updateData);
-
-  const productCategory = useSelector(state=>state.productCategory)
 
   useEffect(() => {}, [update]);
   return (
@@ -39,13 +37,27 @@ const App = () => {
               <Stack.Screen
                 name="ProductCategory"
                 component={ProductCategory}
-                options={({navigation}) => ({
+                options={({route, navigation}) => ({
                   headerLeft: () => (
                     <HeaderLeftButton onPress={() => navigation.goBack()} />
                   ),
-                  headerTitle:productCategory,
+                  headerTitle: route.params.name,
+                  title: route.params.name,
                   headerStyle: {backgroundColor: colors.black},
                   headerTitleStyle: {color: colors.lightWhite},
+                })}
+              />
+              <Stack.Screen
+                name="ProductDetails"
+                component={ProductDetails}
+                options={({route, navigation}) => ({
+                  headerLeft: () => (
+                    <HeaderLeftButton onPress={() => navigation.goBack()} />
+                  ),
+                  headerStyle: {backgroundColor: colors.black},
+                  headerTitleStyle: {color: colors.lightWhite},
+                  title: route.params.item.name,
+                  headerTitle: route.params.item.name,
                 })}
               />
             </>
