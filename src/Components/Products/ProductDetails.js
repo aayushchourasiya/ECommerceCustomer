@@ -9,9 +9,12 @@ export const ProductDetails = ({route}) => {
     <View style={MainStyles.mainBackground}>
       <View style={styles.productDetails}>
         <Image source={{uri: item.image}} style={{width: 200, height: 200}} />
-        <ButtonLarge text="Buy Now" style={{width: '40%', height: 60}} />
+        <View style={{flexDirection:'column',marginRight:20}}>
+          <Text style={[MainStyles.textLarge,{marginBottom:10}]}>{item.price}</Text>
+          <ButtonLarge text="Buy Now" style={{width: '100%', height: 60}}/>
+        </View>
       </View>
-      <View>
+      <View style={{marginTop:10}}>
         <Text style={MainStyles.textLarge}>Category : {item.category}</Text>
         <Text style={[MainStyles.textMedium, {marginTop: 10}]}>
           {item.description}
@@ -23,6 +26,7 @@ export const ProductDetails = ({route}) => {
 const styles = StyleSheet.create({
   productDetails: {
     margin: 10,
+    marginTop:20,
     flex: 0.3,
     flexDirection: 'row',
     justifyContent: 'space-between',

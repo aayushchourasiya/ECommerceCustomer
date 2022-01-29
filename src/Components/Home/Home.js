@@ -1,5 +1,12 @@
-import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+} from 'react-native';
+import React, { useEffect } from 'react';
 import {MainStyles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
 
@@ -10,9 +17,15 @@ export const Home = ({navigation}) => {
     {name: 'Furniture', image: require('../../assets/images/furniture.png')},
   ];
 
-  const showProducts = (name) => {
-    navigation.navigate("ProductCategory",{name:name})
-  }
+  const showProducts = name => {
+    navigation.navigate('ProductCategory', {name: name});
+  };
+
+  useEffect(()=>{
+    BackHandler.addEventListener('hardwareBackPress',()=>{
+      alert("abc");
+    })
+  },[])
 
   return (
     <View style={MainStyles.mainBackground}>
@@ -32,7 +45,7 @@ export const Home = ({navigation}) => {
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
-              onPress={()=>showProducts(item.name)}
+                onPress={() => showProducts(item.name)}
                 style={[
                   MainStyles.buttonLarge,
                   {
