@@ -66,6 +66,23 @@ export const MainStyles = StyleSheet.create({
     paddingVertical: 5,
     margin: 5,
   },
+  boxButton:{
+    width:70,
+    height:70,
+    borderWidth:2,
+    borderRadius:10,
+    justifyContent:'center',
+    borderColor:colors.lightWhite,
+  },
+  boxButtonDisabled:{
+    width:70,
+    height:70,
+    borderWidth:2,
+    borderRadius:10,
+    justifyContent:'center',
+    borderColor:colors.gray,
+    backgroundColor:colors.gray
+  },
   linkText: {
     fontSize: 20,
     fontFamily: fontFamily.primary,

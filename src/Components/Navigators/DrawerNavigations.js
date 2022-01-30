@@ -27,8 +27,9 @@ export const DrawerNavigations = ({navigation}) => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
+      backBehavior='initialRoute'
       screenOptions={{
-        swipeEnabled:false,
+        swipeEnabled: false,
         headerLeft: () => headerLeft(),
         headerStyle: {backgroundColor: colors.black},
         headerTitleStyle: MainStyles.textMedium,
@@ -38,23 +39,20 @@ export const DrawerNavigations = ({navigation}) => {
         drawerInactiveTintColor: colors.lightWhite,
         drawerActiveTintColor: colors.black,
       }}>
-      <Drawer.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          drawerLabelStyle: {alignSelf: 'flex-end', fontSize: 20},
-          drawerActiveBackgroundColor: colors.black,
-          drawerActiveTintColor: colors.lightWhite,
-          drawerIcon: () => (
-            <Icon
-              name="user"
-              size={50}
-              color={colors.lightWhite}
-            />
-          ),
-        }}
-      />
-      <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            
+            drawerLabelStyle: {alignSelf: 'flex-end', fontSize: 20,marginVertical:30},
+            drawerActiveBackgroundColor: colors.black,
+            drawerActiveTintColor: colors.lightWhite,
+            drawerIcon: () => (
+              <Icon name="user" size={50} color={colors.lightWhite} />
+            ),
+          }}
+        />
+        <Drawer.Screen name="Home" component={Home} />
     </Drawer.Navigator>
   );
 };

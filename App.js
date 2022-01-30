@@ -11,7 +11,11 @@ import {colors, fontFamily} from './src/assets/constants';
 import {useSelector} from 'react-redux';
 import {HeaderLeftButton} from './src/Components/Reusable';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {ProductCategory, ProductDetails} from './src/Components/Products/';
+import {
+  ProductCategory,
+  ProductDetails,
+  BuyProduct,
+} from './src/Components/Products/';
 
 const App = () => {
   Icon.loadFont();
@@ -58,6 +62,19 @@ const App = () => {
                   headerTitleStyle: {color: colors.lightWhite},
                   title: route.params.item.name,
                   headerTitle: route.params.item.name,
+                })}
+              />
+              <Stack.Screen
+                name="BuyProduct"
+                component={BuyProduct}
+                options={({route, navigation}) => ({
+                  headerLeft: () => (
+                    <HeaderLeftButton onPress={() => navigation.goBack()} />
+                  ),
+                  headerStyle: {backgroundColor: colors.black},
+                  headerTitleStyle: {color: colors.lightWhite},
+                  title: 'Select Quantity',
+                  headerTitle: 'Select Quantity',
                 })}
               />
             </>

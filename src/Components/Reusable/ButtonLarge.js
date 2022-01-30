@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {fontFamily} from '../../assets/constants';
 import {MainStyles} from '../../assets/styles';
-export const ButtonLarge = ({text, onPress, disabled, style}) => {
+export const ButtonLarge = ({text, onPress, disabled, style,textStyle}) => {
   return (
     <TouchableOpacity
       style={[
@@ -15,7 +15,7 @@ export const ButtonLarge = ({text, onPress, disabled, style}) => {
       <Text
         style={[
           MainStyles.textLarge,
-          {fontFamily: fontFamily.primary, fontWeight: '600'},
+          {fontFamily: fontFamily.primary, fontWeight: '600'},textStyle
         ]}>
         {text}
       </Text>
