@@ -32,7 +32,7 @@ export const BottomTabs = () => {
         options={{
           headerStyle: {backgroundColor: colors.black},
           headerTitleStyle: MainStyles.textMedium,
-          headerTitle: 'Your Products',
+          headerTitle: 'Your Cart',
           tabBarIcon: ({color}) => (
             <Icon name="shoppingcart" size={30} color={color} />
           ),

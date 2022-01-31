@@ -11,11 +11,12 @@ export const BoxButton = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={() => onPress()}
+      onPress={onPress ? () => onPress() : null}
       style={[
         disabled ? MainStyles.boxButtonDisabled : MainStyles.boxButton,
         style,
       ]}
+      disabled={disabled}
       >
       <Text style={[MainStyles.textLarge, textStyle]}>{value}</Text>
     </TouchableOpacity>

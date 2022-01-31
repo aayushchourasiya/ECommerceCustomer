@@ -29,7 +29,6 @@ export const Home = ({navigation}) => {
     setData(arr);
   };
   useEffect(() => {
-    console.log(data);
   }, [data]);
 
   useEffect(() => {
