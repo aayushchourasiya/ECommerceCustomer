@@ -52,8 +52,8 @@ export const CartHome = () => {
                   <View style={{alignItems: 'center'}}>
                     <ButtonLarge
                       text="Remove from Cart"
-                      style={{width: '50%'}}
-                      textStyle={{fontSize: 15}}
+                      style={{width: '60%'}}
+                      textStyle={{fontSize: 25}}
                       onPress={() => removeFromCartFunction(index)}
                     />
                   </View>

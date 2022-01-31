@@ -26,4 +26,11 @@ const removeFromCart = cart => {
   };
 };
 
-export {updateData, currentUser,addToCart,removeFromCart};
+const changeTheme = theme => {
+  return {
+    type: 'THEME',
+    payload: theme,
+  };
+};
+
+export {updateData, currentUser, addToCart, removeFromCart, changeTheme};

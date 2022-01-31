@@ -23,16 +23,16 @@ export const Login = ({navigation}) => {
       setButtonState(true);
       firestore()
         .collection('Users')
-        .where('email', '==', email)
+        .where('email', '==', email.trim())
         .get()
         .then(querySnapshot => {
           if (querySnapshot._docs[0]._data.role === 'customer') {
             auth()
-              .signInWithEmailAndPassword(email, password)
+              .signInWithEmailAndPassword(email.trim(), password)
               .then(() => {
                 setButtonState(false);
                 dispatch(updateData(!update));
-                dispatch(currentUser(email));
+                dispatch(currentUser(email.trim()));
               })
               .catch(e => {
                 alert(

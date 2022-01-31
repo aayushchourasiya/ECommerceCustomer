@@ -43,7 +43,6 @@ export const DrawerNavigations = ({navigation}) => {
           name="Profile"
           component={Profile}
           options={{
-            
             drawerLabelStyle: {alignSelf: 'flex-end', fontSize: 20,marginVertical:30},
             drawerActiveBackgroundColor: colors.black,
             drawerActiveTintColor: colors.lightWhite,

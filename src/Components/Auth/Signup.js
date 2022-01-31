@@ -34,7 +34,7 @@ export const Signup = () => {
         if (passwordValidation(password)) {
           setButtonState(true);
           auth()
-            .createUserWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email.trim(), password)
             .then(() => {
               firestore()
                 .collection('Users')
@@ -42,12 +42,12 @@ export const Signup = () => {
                   fullName: name,
                   password: password,
                   role: 'customer',
-                  email: email,
+                  email: email.trim(),
                 })
                 .then(() => {
                   setButtonState(false);
                   dispatch(updateData(!update));
-                  dispatch(currentUser(email));
+                  dispatch(currentUser(email.trim()));
                 });
             })
             .catch(e => {

@@ -55,6 +55,9 @@
 	<array>
 		<string>SedgwickAve-Regular.ttf</string>
 		<string>Dosis-VariableFont_wght.ttf</string>
+		<string>Dongle-Bold.ttf</string>
+		<string>Dongle-Light.ttf</string>
+		<string>Dongle-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

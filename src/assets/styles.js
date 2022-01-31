@@ -7,30 +7,30 @@ export const MainStyles = StyleSheet.create({
     backgroundColor: colors.black,
   },
   textExtraSmall: {
-    fontSize: 12,
-    color: colors.lightWhite,
-    fontFamily: fontFamily.primary,
-    fontWeight:'600'
-  },
-  textSmall: {
     fontSize: 15,
     color: colors.lightWhite,
     fontFamily: fontFamily.primary,
-    fontWeight:'600'
+    // fontWeight:'600'
   },
-  textMedium: {
+  textSmall: {
     fontSize: 20,
     color: colors.lightWhite,
-    textAlign: 'center',
-    fontFamily: fontFamily.primary,
-    fontWeight:'600'
+    fontFamily: fontFamily.primaryRegular,
+    // fontWeight:'600'
   },
-  textLarge: {
+  textMedium: {
     fontSize: 30,
     color: colors.lightWhite,
     textAlign: 'center',
+    fontFamily: fontFamily.primaryRegular,
+    // fontWeight:'600'
+  },
+  textLarge: {
+    fontSize: 40,
+    color: colors.lightWhite,
+    textAlign: 'center',
     fontFamily: fontFamily.primary,
-    fontWeight:'600'
+    // fontWeight:'600'
   },
   centerView: {
     flex: 1,
@@ -41,13 +41,13 @@ export const MainStyles = StyleSheet.create({
     borderColor: colors.white,
     backgroundColor: colors.lightWhite,
     margin: 10,
-    fontSize: 20,
+    fontSize: 25,
     padding: 10,
     width: '100%',
     height: 50,
     borderRadius: 5,
-    fontFamily: fontFamily.primary,
-    fontWeight: '600',
+    fontFamily: fontFamily.primaryRegular,
+    // fontWeight: '600',
   },
   buttonLarge: {
     borderRadius: 10,

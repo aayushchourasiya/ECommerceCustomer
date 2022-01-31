@@ -22,8 +22,11 @@ const App = () => {
   const Stack = createNativeStackNavigator();
 
   const update = useSelector(state => state.updateData);
+  const theme = useSelector(state => state.theme);
 
-  useEffect(() => {}, [update]);
+  useEffect(() => {
+    console.log(theme);
+  }, [update,theme]);
   return (
     <NavigationContainer>
       <SafeAreaView style={MainStyles.mainBackground}>

@@ -17,6 +17,9 @@
 		83F93F16E8DDD838DD0ACB6B /* libPods-ECommerceCustomer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C34BD1DCAD36B34734A934 /* libPods-ECommerceCustomer.a */; };
 		E2C02DEBC5F14768BA0A098F /* Dosis-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E62B889E5B714C0B9761B5E6 /* Dosis-VariableFont_wght.ttf */; };
 		EE0F2D9484B142F790A6AE7A /* SedgwickAve-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5F91150DA0A4181A05D95F2 /* SedgwickAve-Regular.ttf */; };
+		2F06F2D401804036861382B0 /* Dongle-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F6E479308794C7FB2E4DF8A /* Dongle-Bold.ttf */; };
+		CCFC294439B64744B4E7A58E /* Dongle-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5683DBD896A4B1C8FCB3A2C /* Dongle-Light.ttf */; };
+		26DAEDF3B11B4C59AD391F13 /* Dongle-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6B7ADD027774C29BD585F83 /* Dongle-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		E62B889E5B714C0B9761B5E6 /* Dosis-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Dosis-VariableFont_wght.ttf"; path = "../src/assets/fonts/Dosis-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F916AAC217B84FBB0508081C /* Pods-ECommerceCustomer-ECommerceCustomerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceCustomer-ECommerceCustomerTests.release.xcconfig"; path = "Target Support Files/Pods-ECommerceCustomer-ECommerceCustomerTests/Pods-ECommerceCustomer-ECommerceCustomerTests.release.xcconfig"; sourceTree = "<group>"; };
+		2F6E479308794C7FB2E4DF8A /* Dongle-Bold.ttf */ = {isa = PBXFileReference; name = "Dongle-Bold.ttf"; path = "../src/assets/fonts/Dongle-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D5683DBD896A4B1C8FCB3A2C /* Dongle-Light.ttf */ = {isa = PBXFileReference; name = "Dongle-Light.ttf"; path = "../src/assets/fonts/Dongle-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A6B7ADD027774C29BD585F83 /* Dongle-Regular.ttf */ = {isa = PBXFileReference; name = "Dongle-Regular.ttf"; path = "../src/assets/fonts/Dongle-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +207,9 @@
 			children = (
 				D5F91150DA0A4181A05D95F2 /* SedgwickAve-Regular.ttf */,
 				E62B889E5B714C0B9761B5E6 /* Dosis-VariableFont_wght.ttf */,
+				2F6E479308794C7FB2E4DF8A /* Dongle-Bold.ttf */,
+				D5683DBD896A4B1C8FCB3A2C /* Dongle-Light.ttf */,
+				A6B7ADD027774C29BD585F83 /* Dongle-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -305,6 +314,9 @@
 				5F859E9B279EB3790048AC8F /* GoogleService-Info.plist in Resources */,
 				EE0F2D9484B142F790A6AE7A /* SedgwickAve-Regular.ttf in Resources */,
 				E2C02DEBC5F14768BA0A098F /* Dosis-VariableFont_wght.ttf in Resources */,
+				2F06F2D401804036861382B0 /* Dongle-Bold.ttf in Resources */,
+				CCFC294439B64744B4E7A58E /* Dongle-Light.ttf in Resources */,
+				26DAEDF3B11B4C59AD391F13 /* Dongle-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
