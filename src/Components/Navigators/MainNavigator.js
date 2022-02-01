@@ -46,7 +46,10 @@ export const MainNavigator = () => {
                 headerTitle: route.params.name,
                 title: route.params.name,
                 headerStyle: backGround,
-                headerTitleStyle: backGroundReverse,
+                headerTitleStyle: [
+                  backGroundReverse,
+                  {fontFamily: fontFamily.primary, fontSize: 30},
+                ],
               })}
             />
             <Stack.Screen
@@ -57,7 +60,10 @@ export const MainNavigator = () => {
                   <HeaderLeftButton onPress={() => navigation.goBack()} />
                 ),
                 headerStyle: backGround,
-                headerTitleStyle: backGroundReverse,
+                headerTitleStyle: [
+                  backGroundReverse,
+                  {fontFamily: fontFamily.primary, fontSize: 30},
+                ],
                 title: route.params.item.name,
                 headerTitle: route.params.item.name,
               })}
@@ -70,7 +76,10 @@ export const MainNavigator = () => {
                   <HeaderLeftButton onPress={() => navigation.goBack()} />
                 ),
                 headerStyle: backGround,
-                headerTitleStyle: backGroundReverse,
+                headerTitleStyle: [
+                  backGroundReverse,
+                  {fontFamily: fontFamily.primary, fontSize: 30},
+                ],
                 title: 'Select Quantity',
                 headerTitle: 'Select Quantity',
               })}
@@ -94,8 +103,10 @@ export const MainNavigator = () => {
                 headerTitleStyle: {
                   color: theme ? colors.lightWhite : colors.black,
                   fontFamily: fontFamily.primary,
-                  fontWeight: '600',
+                  fontSize: 30,
                 },
+                title: 'Sign Up',
+                headerTitle: 'Sign Up',
               })}
             />
           </>

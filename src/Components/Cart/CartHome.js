@@ -1,23 +1,81 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Modal,
+} from 'react-native';
+import React, {useState} from 'react';
 import {Styles} from '../../assets/styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {ButtonLarge} from '../Reusable';
-import {removeFromCart} from '../../store/action';
+import {BoxButton, ButtonLarge} from '../Reusable';
+import {changeQuantityOfItem, removeFromCart} from '../../store/action';
 import {colors} from '../../assets/constants';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { StylesLight } from '../../assets/stylesLight';
+import {StylesLight} from '../../assets/stylesLight';
 
 export const CartHome = () => {
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   const data = useSelector(state => state.cart);
+
+  const [oldQuantity, setOldQuantity] = useState(0);
+  const [newQuantity, setNewQuantity] = useState(0);
+  const [modalItem, setModalItem] = useState([]);
+  const [indexForChangeQuantity, setIndexForChangeQuantity] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const removeFromCartFunction = index => {
     dispatch(removeFromCart({index: index}));
   };
-  const theme = useSelector(state => state.theme);
-  const MainStyles = theme ? Styles : StylesLight;
+
+  const changeQuantity = (item, index) => {
+    setOldQuantity(item.quantity);
+    setNewQuantity(item.quantity);
+    setModalItem(item.item);
+    setIndexForChangeQuantity(index);
+    setShowModal(true);
+  };
+
+  const changeQuantityDone = () => {
+    if (oldQuantity !== newQuantity) {
+      dispatch(
+        changeQuantityOfItem({
+          index: indexForChangeQuantity,
+          newQuantity: newQuantity,
+        }),
+      );
+      setOldQuantity(0);
+      setNewQuantity(0);
+      setModalItem(0);
+      setIndexForChangeQuantity(null);
+      setShowModal(false);
+    }
+  };
+
+  const closeModal = () => {
+    setOldQuantity(0);
+    setNewQuantity(0);
+    setModalItem(0);
+    setIndexForChangeQuantity(null);
+    setShowModal(false);
+  };
+
+  const changeInitial = value => {
+    switch (value) {
+      case '-':
+        return setNewQuantity(newQuantity - 1);
+      case '+':
+        return setNewQuantity(newQuantity + 1);
+    }
+  };
   return (
-    <View style={[MainStyles.mainBackground]}>
+    <View
+      style={[
+        MainStyles.mainBackground,
+        {opacity: showModal ? (theme ? 0.5 : 0.1) : 1},
+      ]}>
       {data.length > 0 ? (
         <View style={{width: '100%', marginTop: 5, flex: 1}}>
           <FlatList
@@ -38,7 +96,7 @@ export const CartHome = () => {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems:'center',
+                      alignItems: 'center',
                       margin: 10,
                     }}>
                     <Image
@@ -52,10 +110,17 @@ export const CartHome = () => {
                       </Text>
                     </View>
                   </View>
-                  <View style={{alignItems: 'center'}}>
+                  <View
+                    style={{justifyContent: 'center', flexDirection: 'row'}}>
+                    <ButtonLarge
+                      text="Change quantity"
+                      style={{width: '50%'}}
+                      textStyle={{fontSize: 25}}
+                      onPress={() => changeQuantity(item, index)}
+                    />
                     <ButtonLarge
                       text="Remove from Cart"
-                      style={{width: '60%'}}
+                      style={{width: '50%'}}
                       textStyle={{fontSize: 25}}
                       onPress={() => removeFromCartFunction(index)}
                     />
@@ -66,14 +131,85 @@ export const CartHome = () => {
           />
           <View style={{alignItems: 'center'}}>
             <ButtonLarge
-              style={{backgroundColor: colors.lightWhite,borderWidth:0}}
+              style={{backgroundColor: colors.lightWhite, borderWidth: 0}}
               textStyle={{color: colors.black}}
-              text='CHECKOUT'
-              iconName='doubleright'
+              text="CHECKOUT"
+              iconName="doubleright"
               iconColor={colors.black}
-              onPress={()=>alert("YO")}
+              onPress={() => alert('YO')}
             />
           </View>
+          <Modal
+            presentationStyle="overFullScreen"
+            visible={showModal}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={closeModal}>
+            <View
+              style={{
+                flex: 1,
+                // flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  backgroundColor: theme ? colors.black : colors.white,
+                  borderColor: theme ? colors.lightWhite : colors.black,
+                  borderWidth: 2,
+                  borderRadius: 20,
+                  width: 300,
+                  height: 300,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <View
+                  style={{
+                    width: '100%',
+                    flex: 1,
+                    alignItems: 'flex-end',
+                    marginRight: 10,
+                    marginTop: 10,
+                  }}>
+                  <BoxButton
+                    style={{width: 40, height: 40}}
+                    value="X"
+                    onPress={closeModal}
+                  />
+                </View>
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                  <Text style={MainStyles.textLarge}>Change Quantity</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 10,
+                  }}>
+                  <BoxButton
+                    disabled={newQuantity <= 1 ? true : false}
+                    value="-"
+                    textStyle={{fontSize: 50}}
+                    style={{marginRight: 10}}
+                    onPress={() => changeInitial('-')}
+                  />
+                  <BoxButton value={newQuantity} disabled />
+                  <BoxButton
+                    disabled={newQuantity >= modalItem.quantity ? true : false}
+                    value="+"
+                    style={{marginLeft: 10}}
+                    onPress={() => changeInitial('+')}
+                  />
+                </View>
+                <View style={{width: '100%', alignItems: 'center'}}>
+                  <ButtonLarge
+                    text="Done"
+                    disabled={oldQuantity === newQuantity}
+                    onPress={changeQuantityDone}
+                  />
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       ) : (
         <Text style={[MainStyles.textLarge, {marginTop: 50}]}>

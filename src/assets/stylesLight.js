@@ -86,7 +86,7 @@ export const StylesLight = StyleSheet.create({
     backgroundColor: colors.gray,
   },
   linkText: {
-    fontSize: 20,
+    fontSize: 30,
     fontFamily: fontFamily.primary,
     textDecorationLine: 'underline',
     color: colors.black,

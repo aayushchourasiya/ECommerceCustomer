@@ -84,7 +84,7 @@ export const Login = ({navigation}) => {
           onChangeText={text => setPassword(text)}
         />
         <ButtonLarge disabled={buttonState} text="Login" onPress={login} />
-        <Text style={[MainStyles.textMedium, {marginVertical: 5}]}>
+        <Text style={[MainStyles.textMedium, {marginTop: 5}]}>
           Don't have an account?
         </Text>
         <Text

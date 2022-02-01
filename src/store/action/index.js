@@ -26,6 +26,13 @@ const removeFromCart = cart => {
   };
 };
 
+const changeQuantityOfItem = newQuantity => {
+  return {
+    type: 'CHANGEQUANTITY',
+    payload: newQuantity,
+  };
+};
+
 const changeTheme = theme => {
   return {
     type: 'THEME',
@@ -33,4 +40,11 @@ const changeTheme = theme => {
   };
 };
 
-export {updateData, currentUser, addToCart, removeFromCart, changeTheme};
+export {
+  updateData,
+  currentUser,
+  addToCart,
+  removeFromCart,
+  changeTheme,
+  changeQuantityOfItem,
+};

@@ -99,14 +99,14 @@ export const BuyProduct = ({route, navigation}) => {
         <ButtonLarge
           text="Add to Cart"
           style={{width: 150}}
-          textStyle={{fontSize: 20}}
+          // textStyle={{fontSize: 20}}
           disabled={quantity > 0 ? false : true}
           onPress={addToCartFunction}
         />
         <ButtonLarge
           text="Checkout"
           style={{width: 150}}
-          textStyle={{fontSize: 20}}
+          // textStyle={{fontSize: 20}}
           disabled={quantity > 0 ? false : true}
           onPress={() => alert('Make Payment')}
         />

@@ -8,9 +8,11 @@ export const cartReducer = (state = [], action) => {
 
     case 'REMOVEFROMCART': {
       state.splice(action.payload.index, 1);
-      return [
-        ...state
-      ];
+      return [...state];
+    }
+    case 'CHANGEQUANTITY': {
+      state[action.payload.index].quantity = action.payload.newQuantity;
+      return [...state];
     }
 
     default:
