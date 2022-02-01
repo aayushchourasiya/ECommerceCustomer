@@ -1,8 +1,10 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useSelector} from 'react-redux';
 import {fontFamily} from '../../assets/constants';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
+import {StylesLight} from '../../assets/stylesLight';
 export const ButtonLarge = ({
   text,
   onPress,
@@ -12,11 +14,18 @@ export const ButtonLarge = ({
   iconName,
   iconColor,
 }) => {
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   return (
     <TouchableOpacity
       style={[
         disabled ? MainStyles.buttonLargeDisabled : MainStyles.buttonLarge,
-        {width: '80%'},
+        {
+          width: '80%',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
         style,
       ]}
       onPress={onPress ? () => onPress() : null}
@@ -24,12 +33,12 @@ export const ButtonLarge = ({
       <Text
         style={[
           MainStyles.textLarge,
-          {fontFamily: fontFamily.primary, fontWeight: '600'},
+          {fontFamily: fontFamily.primary},
           textStyle,
         ]}>
-        {text}{' '}
-        {iconName && <Icon name={iconName} size={25} color={iconColor} />}
+        {text}
       </Text>
+      {iconName && <Icon style={{marginLeft:10}} name={iconName} size={25} color={iconColor} />}
     </TouchableOpacity>
   );
 };

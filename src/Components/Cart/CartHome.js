@@ -1,11 +1,12 @@
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {ButtonLarge} from '../Reusable';
 import {removeFromCart} from '../../store/action';
 import {colors} from '../../assets/constants';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { StylesLight } from '../../assets/stylesLight';
 
 export const CartHome = () => {
   const data = useSelector(state => state.cart);
@@ -13,7 +14,8 @@ export const CartHome = () => {
   const removeFromCartFunction = index => {
     dispatch(removeFromCart({index: index}));
   };
-
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   return (
     <View style={[MainStyles.mainBackground]}>
       {data.length > 0 ? (
@@ -36,6 +38,7 @@ export const CartHome = () => {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      alignItems:'center',
                       margin: 10,
                     }}>
                     <Image
@@ -63,9 +66,9 @@ export const CartHome = () => {
           />
           <View style={{alignItems: 'center'}}>
             <ButtonLarge
-              style={{backgroundColor: colors.lightWhite}}
+              style={{backgroundColor: colors.lightWhite,borderWidth:0}}
               textStyle={{color: colors.black}}
-              text='Checkout'
+              text='CHECKOUT'
               iconName='doubleright'
               iconColor={colors.black}
               onPress={()=>alert("YO")}

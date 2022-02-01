@@ -3,13 +3,20 @@ import {DrawerActions} from '@react-navigation/native';
 import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {colors} from '../../assets/constants';
-import {MainStyles} from '../../assets/styles';
+import {useSelector} from 'react-redux';
+import {colors, fontFamily} from '../../assets/constants';
+import {Styles} from '../../assets/styles';
+import {StylesLight} from '../../assets/stylesLight';
 import {Home, Profile} from '../Home/';
 
 export const DrawerNavigations = ({navigation}) => {
   const Drawer = createDrawerNavigator();
+  const theme = useSelector(state => state.theme);
 
+  const MainStyles = theme ? Styles : StylesLight;
+  const backGround = {backgroundColor: theme ? colors.black : colors.white};
+  const tint = theme ? colors.lightWhite : colors.black;
+  const tintReverse = !theme ? colors.lightWhite : colors.black;
   const headerLeft = () => {
     const isDrawerOpen = useDrawerStatus() === 'open';
     return (
@@ -19,7 +26,7 @@ export const DrawerNavigations = ({navigation}) => {
         <Icon
           name={isDrawerOpen ? 'menu-unfold' : 'menu-fold'}
           size={25}
-          color={colors.lightWhite}
+          color={theme ? colors.lightWhite : colors.black}
         />
       </TouchableOpacity>
     );
@@ -27,31 +34,33 @@ export const DrawerNavigations = ({navigation}) => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      backBehavior='initialRoute'
+      backBehavior="initialRoute"
       screenOptions={{
         swipeEnabled: false,
         headerLeft: () => headerLeft(),
-        headerStyle: {backgroundColor: colors.black},
+        headerStyle: backGround,
         headerTitleStyle: MainStyles.textMedium,
         drawerType: 'slide',
-        drawerStyle: {backgroundColor: colors.black},
-        drawerActiveBackgroundColor: colors.lightWhite,
-        drawerInactiveTintColor: colors.lightWhite,
-        drawerActiveTintColor: colors.black,
+        drawerStyle: backGround,
+        drawerActiveBackgroundColor: tint,
+        drawerInactiveTintColor: tint,
+        drawerActiveTintColor: tintReverse,
       }}>
-        <Drawer.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            drawerLabelStyle: {alignSelf: 'flex-end', fontSize: 20,marginVertical:30},
-            drawerActiveBackgroundColor: colors.black,
-            drawerActiveTintColor: colors.lightWhite,
-            drawerIcon: () => (
-              <Icon name="user" size={50} color={colors.lightWhite} />
-            ),
-          }}
-        />
-        <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          drawerLabelStyle: {
+            alignSelf: 'flex-end',
+            fontSize: 20,
+            marginVertical: 30,
+          },
+          drawerActiveBackgroundColor: backGround,
+          drawerActiveTintColor: !tint,
+          drawerIcon: () => <Icon name="user" size={50} color={tint} />,
+        }}
+      />
+      <Drawer.Screen name="Home" component={Home} />
     </Drawer.Navigator>
   );
 };

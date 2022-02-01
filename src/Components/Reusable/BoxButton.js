@@ -1,6 +1,8 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
+import { StylesLight } from '../../assets/stylesLight';
+import { useSelector } from 'react-redux';
 
 export const BoxButton = ({
   disabled,
@@ -9,6 +11,8 @@ export const BoxButton = ({
   style,
   textStyle,
 }) => {
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   return (
     <TouchableOpacity
       onPress={onPress ? () => onPress() : null}

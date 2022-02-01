@@ -1,33 +1,33 @@
 import {StyleSheet} from 'react-native';
 import {colors, fontFamily} from './constants';
 
-export const Styles = StyleSheet.create({
+export const StylesLight = StyleSheet.create({
   mainBackground: {
     flex: 1,
-    backgroundColor:colors.black,
+    backgroundColor:colors.white,
   },
   textExtraSmall: {
     fontSize: 15,
-    color: colors.lightWhite,
+    color: colors.black,
     fontFamily: fontFamily.primary,
     // fontWeight:'600'
   },
   textSmall: {
     fontSize: 20,
-    color: colors.lightWhite,
+    color: colors.black,
     fontFamily: fontFamily.primaryRegular,
     // fontWeight:'600'
   },
   textMedium: {
     fontSize: 30,
-    color: colors.lightWhite,
+    color: colors.black,
     textAlign: 'center',
     fontFamily: fontFamily.primaryRegular,
     // fontWeight:'600'
   },
   textLarge: {
     fontSize: 30,
-    color: colors.lightWhite,
+    color: colors.black,
     textAlign: 'center',
     fontFamily: fontFamily.primary,
     // fontWeight:'600'
@@ -38,8 +38,9 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    borderColor: colors.white,
-    backgroundColor: colors.lightWhite,
+    borderColor: colors.black,
+    borderWidth:2,
+    backgroundColor: colors.white,
     color: colors.black,
     margin: 10,
     fontSize: 25,
@@ -52,7 +53,7 @@ export const Styles = StyleSheet.create({
   },
   buttonLarge: {
     borderRadius: 10,
-    borderColor: colors.lightWhite,
+    borderColor: colors.dark,
     borderWidth: 2,
     width: '100%',
     paddingVertical: 5,
@@ -73,7 +74,7 @@ export const Styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: 'center',
-    borderColor: colors.lightWhite,
+    borderColor: colors.black,
   },
   boxButtonDisabled: {
     width: 70,
@@ -88,7 +89,7 @@ export const Styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: fontFamily.primary,
     textDecorationLine: 'underline',
-    color: colors.lightWhite,
+    color: colors.black,
     fontWeight: '600',
   },
 });

@@ -1,6 +1,8 @@
 import {TextInput} from 'react-native';
 import React from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
+import { StylesLight } from '../../assets/stylesLight';
+import { useSelector } from 'react-redux';
 
 export const TextInputCustom = ({
   style,
@@ -12,8 +14,10 @@ export const TextInputCustom = ({
   onChangeText,
   customRef,
   secureTextEntry,
-  autoCapitalize
+  autoCapitalize,
 }) => {
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   return (
     <TextInput
       style={[MainStyles.textInput, style]}

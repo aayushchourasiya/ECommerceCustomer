@@ -1,12 +1,17 @@
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import firestore from '@react-native-firebase/firestore';
 import {TextInputCustom} from '../Reusable';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../assets/constants';
+import {StylesLight} from '../../assets/stylesLight';
+import {useSelector} from 'react-redux';
 
 export const ProductCategory = ({route, navigation}) => {
+  const theme = useSelector(state => state.theme);
+
+  const MainStyles = theme ? Styles : StylesLight;
   const {name} = route.params;
   const [data, setData] = useState([]);
   const [oldData, setOldData] = useState([]);
@@ -79,7 +84,11 @@ export const ProductCategory = ({route, navigation}) => {
           customRef={searchRef}
         />
         <TouchableOpacity onPress={() => searchRef.current.focus()}>
-          <Icon name="search1" size={40} color={colors.lightWhite} />
+          <Icon
+            name="search1"
+            size={40}
+            color={theme ? colors.lightWhite : colors.black}
+          />
         </TouchableOpacity>
       </View>
       {data.length > 0 ? (

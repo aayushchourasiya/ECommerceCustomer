@@ -1,8 +1,10 @@
 import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
 import firestore from '@react-native-firebase/firestore';
+import {StylesLight} from '../../assets/stylesLight';
+import { useSelector } from 'react-redux';
 
 export const Home = ({navigation}) => {
   const categories = [
@@ -14,7 +16,9 @@ export const Home = ({navigation}) => {
   const showProducts = name => {
     navigation.navigate('ProductCategory', {name: name});
   };
+  const theme = useSelector(state => state.theme);
 
+  const MainStyles = theme ? Styles : StylesLight;
   const filterFunction = query => {
     let arr = [];
     query?.filter(item => {
@@ -28,8 +32,7 @@ export const Home = ({navigation}) => {
     });
     setData(arr);
   };
-  useEffect(() => {
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   useEffect(() => {
     firestore()
@@ -101,7 +104,7 @@ export const Home = ({navigation}) => {
           }}
         />
       </View>
-      <View style={{flex:1}}>
+      <View style={{flex: 1}}>
         <Text
           style={[
             MainStyles.textLarge,
@@ -111,7 +114,7 @@ export const Home = ({navigation}) => {
         </Text>
         {data.length > 0 ? (
           <FlatList
-            data={data.slice(0,10)}
+            data={data.slice(0, 10)}
             renderItem={({item, index}) => {
               return (
                 <TouchableOpacity

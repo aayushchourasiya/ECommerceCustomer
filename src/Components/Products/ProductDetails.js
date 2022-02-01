@@ -1,22 +1,27 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
+import { StylesLight } from '../../assets/stylesLight';
+import { useSelector } from 'react-redux';
 
 export const ProductDetails = ({route, navigation}) => {
+  const theme = useSelector(state => state.theme);
+  
+  const MainStyles = theme ? Styles : StylesLight;
   const {item} = route.params;
   return (
     <View style={MainStyles.mainBackground}>
       <View style={styles.productDetails}>
         <Image source={{uri: item.image}} style={{width: 200, height: 200}} />
-        <View style={{flexDirection: 'column', marginRight: 20}}>
+        <View style={{flexDirection: 'column', marginRight: 40,alignItems:'center'}}>
           <Text style={[MainStyles.textLarge, {marginBottom: 10}]}>
             {item.price}
           </Text>
           <ButtonLarge
             text="Buy Now"
-            style={{width: '100%', height: 60}}
-            onPress={() => navigation.navigate('BuyProduct',{item:item})}
+            style={{ padding: 10}}
+            onPress={() => navigation.navigate('BuyProduct', {item: item})}
           />
         </View>
       </View>

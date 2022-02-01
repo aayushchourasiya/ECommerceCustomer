@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useRef, useState} from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
+import {StylesLight} from '../../assets/stylesLight';
 import {ButtonLarge, TextInputCustom} from '../Reusable';
 import {colors, fontFamily} from '../../assets/constants';
 import {emailValidation, passwordValidation} from '../../Helper/validation';
@@ -22,7 +23,8 @@ export const Signup = () => {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const update = useSelector(state => state.updateData);
-
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   const submit = () => {
     if (
       name.trim() !== '' &&
@@ -82,8 +84,8 @@ export const Signup = () => {
           placeholder="Enter Your Name Here!"
           value={name}
           onChangeText={text => setName(text)}
-          onEndEditing={()=>emailRef.current.focus()}
-          returnKeyType='next'
+          onEndEditing={() => emailRef.current.focus()}
+          returnKeyType="next"
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>Email</Text>
         <TextInputCustom
@@ -93,8 +95,8 @@ export const Signup = () => {
           autoCapitalize="none"
           onChangeText={text => setEmail(text)}
           customRef={emailRef}
-          onEndEditing={()=>passwordRef.current.focus()}
-          returnKeyType='next'
+          onEndEditing={() => passwordRef.current.focus()}
+          returnKeyType="next"
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>Password</Text>
         <TextInputCustom
@@ -105,8 +107,8 @@ export const Signup = () => {
           secureTextEntry
           customRef={passwordRef}
           onChangeText={text => setPassword(text)}
-          onEndEditing={()=>confirmPasswordRef.current.focus()}
-          returnKeyType='next'
+          onEndEditing={() => confirmPasswordRef.current.focus()}
+          returnKeyType="next"
         />
         <Text style={[MainStyles.textMedium, styles.textLabel]}>
           Confirm Password
@@ -118,7 +120,7 @@ export const Signup = () => {
           value={confirmPassword}
           customRef={confirmPasswordRef}
           onChangeText={text => setConfirmPassword(text)}
-          returnKeyType='done'
+          returnKeyType="done"
         />
         <Text style={[MainStyles.textMedium, styles.textDanger]}>
           {password !== confirmPassword ? "Passwords don't match!" : error}

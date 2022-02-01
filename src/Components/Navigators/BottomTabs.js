@@ -4,19 +4,25 @@ import {CartHome} from '../Cart';
 import {Settings} from '../Settings';
 import {DrawerNavigations} from '.';
 import {colors} from '../../assets/constants';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {StylesLight} from '../../assets/stylesLight';
+import {useSelector} from 'react-redux';
 
 export const BottomTabs = () => {
   const Tab = createBottomTabNavigator();
+  const theme = useSelector(state => state.theme);
+
+  const MainStyles = theme ? Styles : StylesLight;
+  const backGround = {backgroundColor: theme ? colors.black : colors.white};
   return (
     <Tab.Navigator
       initialRouteName="DrawerNavigations"
       screenOptions={{
-        tabBarStyle: {backgroundColor: colors.black},
+        tabBarStyle: {backgroundColor: theme ? colors.black : colors.white},
         tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.activeTab,
-        tabBarInactiveTintColor: colors.lightWhite,
+        tabBarActiveTintColor: theme ? colors.activeTab : colors.blue,
+        tabBarInactiveTintColor: theme ? colors.lightWhite : colors.black,
       }}>
       <Tab.Screen
         name="DrawerNavigations"
@@ -30,7 +36,7 @@ export const BottomTabs = () => {
         name="CartHome"
         component={CartHome}
         options={{
-          headerStyle: {backgroundColor: colors.black},
+          headerStyle: backGround,
           headerTitleStyle: MainStyles.textMedium,
           headerTitle: 'Your Cart',
           tabBarIcon: ({color}) => (
@@ -42,7 +48,7 @@ export const BottomTabs = () => {
         name="Settings"
         component={Settings}
         options={{
-          headerStyle: {backgroundColor: colors.black},
+          headerStyle: backGround,
           headerTitleStyle: MainStyles.textMedium,
           tabBarIcon: ({color}) => (
             <Icon name="setting" size={30} color={color} />

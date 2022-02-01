@@ -1,6 +1,7 @@
 import {View, Text} from 'react-native';
 import React, {useRef, useState} from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
+import {StylesLight} from '../../assets/stylesLight';
 import {fontFamily} from '../../assets/constants';
 import {ButtonLarge, TextInputCustom} from '../Reusable/';
 import {} from '../Reusable/TextInputCustom';
@@ -17,7 +18,8 @@ export const Login = ({navigation}) => {
 
   const dispatch = useDispatch();
   const update = useSelector(state => state.updateData);
-
+  const theme = useSelector(state => state.theme);
+  const MainStyles = theme ? Styles : StylesLight;
   const login = () => {
     if (email.trim() !== '' && password.trim() !== '') {
       setButtonState(true);

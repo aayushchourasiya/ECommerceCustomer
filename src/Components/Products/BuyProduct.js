@@ -1,14 +1,20 @@
 import {Text, View, Image} from 'react-native';
 import React, {useState} from 'react';
-import {MainStyles} from '../../assets/styles';
+import {Styles} from '../../assets/styles';
 import {BoxButton, ButtonLarge} from '../Reusable/';
-import {useDispatch} from 'react-redux';
-import {addToCart} from '../../store/action';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, removeFromCart} from '../../store/action';
+import {StylesLight} from '../../assets/stylesLight';
 
 export const BuyProduct = ({route, navigation}) => {
   const {item} = route.params;
   const [quantity, setQuantity] = useState(1);
   const [errorText, setErrorText] = useState(null);
+
+  const theme = useSelector(state => state.theme);
+  const cart = useSelector(state => state.cart);
+
+  const MainStyles = theme ? Styles : StylesLight;
 
   const dispatch = useDispatch();
 
@@ -22,9 +28,34 @@ export const BuyProduct = ({route, navigation}) => {
   };
 
   const addToCartFunction = () => {
-    dispatch(addToCart({item: item, quantity: quantity}));
-    alert('Added');
-    navigation.goBack();
+    let isInCart = 0;
+    cart.filter(cartObject => {
+      console.log(cartObject);
+      if (cartObject.item.id === item.id) {
+        isInCart++;
+        if (cartObject.quantity < item.quantity) {
+          const index = cart.findIndex(
+            obj => cartObject.item.id === obj.item.id,
+          );
+          dispatch(removeFromCart({index: index}));
+          dispatch(
+            addToCart({
+              item: item,
+              quantity: Number(cartObject.quantity) + Number(quantity),
+            }),
+          );
+          alert('Added');
+          navigation.goBack();
+        } else {
+          alert('Out of stock!');
+        }
+      }
+    });
+    if (isInCart === 0) {
+      alert('Added');
+      dispatch(addToCart({item: item, quantity: quantity}));
+      navigation.goBack();
+    }
   };
 
   return (
