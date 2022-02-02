@@ -32,14 +32,27 @@ export const Settings = ({navigation}) => {
   };
 
   return (
-    <View style={MainStyles.mainBackground}>
-      <Text style={MainStyles.textLarge}>Theme</Text>
-      <ButtonLarge
-        text={theme ? 'DARK' : 'LIGHT'}
-        style={{alignSelf: 'center'}}
-        onPress={changeThemeFunction}
-        // disabled={buttonState}
-      />
+    <View
+      style={[
+        MainStyles.mainBackground,
+        {flex: 1, justifyContent: 'space-between', paddingBottom: 20},
+      ]}>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 20,
+          marginHorizontal: 30,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <Text style={MainStyles.textLarge}>Theme</Text>
+        <ButtonLarge
+          text={theme ? 'DARK' : 'LIGHT'}
+          style={{alignSelf: 'center', width: '50%'}}
+          onPress={changeThemeFunction}
+          // disabled={buttonState}
+        />
+      </View>
       <ButtonLarge
         text="Logout"
         style={{alignSelf: 'center'}}

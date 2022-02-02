@@ -4,7 +4,7 @@ import {Styles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
 import firestore from '@react-native-firebase/firestore';
 import {StylesLight} from '../../assets/stylesLight';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 export const Home = ({navigation}) => {
   const categories = [
@@ -114,7 +114,7 @@ export const Home = ({navigation}) => {
         </Text>
         {data.length > 0 ? (
           <FlatList
-            data={data.slice(0, 10)}
+            data={data.reverse().slice(0, 10)}
             renderItem={({item, index}) => {
               return (
                 <TouchableOpacity

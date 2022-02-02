@@ -34,7 +34,7 @@ export const Login = ({navigation}) => {
               .then(() => {
                 setButtonState(false);
                 dispatch(updateData(!update));
-                dispatch(currentUser(email.trim()));
+                dispatch(currentUser(querySnapshot._docs[0]._data));
               })
               .catch(e => {
                 alert(

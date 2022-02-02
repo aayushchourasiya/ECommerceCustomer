@@ -13,12 +13,14 @@ import {BoxButton, ButtonLarge} from '../Reusable';
 import {changeQuantityOfItem, removeFromCart} from '../../store/action';
 import {colors} from '../../assets/constants';
 import {StylesLight} from '../../assets/stylesLight';
+import firestore from '@react-native-firebase/firestore';
 
 export const CartHome = () => {
   const theme = useSelector(state => state.theme);
   const MainStyles = theme ? Styles : StylesLight;
   const data = useSelector(state => state.cart);
-
+  const user = useSelector(state => state.user);
+  console.log('>>>>>.', user);
   const [oldQuantity, setOldQuantity] = useState(0);
   const [newQuantity, setNewQuantity] = useState(0);
   const [modalItem, setModalItem] = useState([]);
@@ -70,6 +72,53 @@ export const CartHome = () => {
         return setNewQuantity(newQuantity + 1);
     }
   };
+
+  const filterFunction = query => {
+    query?.filter(serverItem => {
+      let newProductsArray = [...serverItem._data.myProducts];
+      serverItem._data.myProducts.filter(
+        (serverProduct, serverProductIndex) => {
+          data.filter((cartItem, cartIndex) => {
+            if (serverProduct.id === cartItem.item.id) {
+              newProductsArray[serverProductIndex].quantity =
+                Number(serverProduct.quantity) - Number(cartItem.quantity);
+              firestore()
+                .collection('Users')
+                .doc(serverItem.id)
+                .update({
+                  myProducts: [...newProductsArray],
+                })
+                .then(() => {
+                  dispatch(removeFromCart({index: cartIndex}));
+                  // let soldProductsArray = [...serverItem.soldProducts]
+                  // firestore().collection('Users').doc(serverItem.id).update({
+                  //   soldProducts : [...soldProductsArray,...user , newQuantity,serverProduct]
+                  // });
+                })
+                .catch(e => {
+                  alert(e);
+                });
+            }
+          });
+        },
+      );
+    });
+  };
+
+  const checkOutFunction = () => {
+    firestore()
+      .collection('Users')
+      .where('role', '==', 'admin')
+      .get()
+      .then(query => {
+        filterFunction(query._docs);
+        alert('Thank you for shopping with us!');
+      })
+      .catch(e => {
+        alert(e);
+      });
+  };
+
   return (
     <View
       style={[
@@ -136,7 +185,7 @@ export const CartHome = () => {
               text="CHECKOUT"
               iconName="doubleright"
               iconColor={colors.black}
-              onPress={() => alert('YO')}
+              onPress={() => checkOutFunction()}
             />
           </View>
           <Modal
