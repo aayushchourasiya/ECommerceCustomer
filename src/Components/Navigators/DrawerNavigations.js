@@ -12,6 +12,7 @@ import {Home, Profile} from '../Home/';
 export const DrawerNavigations = ({navigation}) => {
   const Drawer = createDrawerNavigator();
   const theme = useSelector(state => state.theme);
+  const user = useSelector(state => state.user);
 
   const MainStyles = theme ? Styles : StylesLight;
   const backGround = {backgroundColor: theme ? colors.black : colors.white};
@@ -55,6 +56,9 @@ export const DrawerNavigations = ({navigation}) => {
             fontSize: 20,
             marginVertical: 30,
           },
+          drawerLabel: user.fullName,
+          title: 'Your Profile',
+          headerTitle: 'Your Profile',
           drawerActiveBackgroundColor: backGround,
           drawerActiveTintColor: !tint,
           drawerIcon: () => <Icon name="user" size={50} color={tint} />,

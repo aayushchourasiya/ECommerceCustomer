@@ -1,8 +1,8 @@
 import {TextInput} from 'react-native';
 import React from 'react';
 import {Styles} from '../../assets/styles';
-import { StylesLight } from '../../assets/stylesLight';
-import { useSelector } from 'react-redux';
+import {StylesLight} from '../../assets/stylesLight';
+import {useSelector} from 'react-redux';
 
 export const TextInputCustom = ({
   style,
@@ -15,21 +15,25 @@ export const TextInputCustom = ({
   customRef,
   secureTextEntry,
   autoCapitalize,
+  editable,
+  selectTextOnFocus,
 }) => {
   const theme = useSelector(state => state.theme);
   const MainStyles = theme ? Styles : StylesLight;
   return (
     <TextInput
+      selectTextOnFocus={selectTextOnFocus}
       style={[MainStyles.textInput, style]}
       placeholder={placeholder}
-      keyboardType={keyboardType || "default"}
-      onEndEditing={onEndEditing ? ()=>onEndEditing() : null}
+      keyboardType={keyboardType || 'default'}
+      onEndEditing={onEndEditing ? () => onEndEditing() : null}
       returnKeyType={returnKeyType}
       value={value}
       secureTextEntry={secureTextEntry || false}
       ref={customRef}
       onChangeText={onChangeText || null}
       autoCapitalize={autoCapitalize || 'sentences'}
+      editable={editable}
     />
   );
 };
