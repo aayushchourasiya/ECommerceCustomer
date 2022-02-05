@@ -14,6 +14,9 @@ export const cartReducer = (state = [], action) => {
       state[action.payload.index].quantity = action.payload.newQuantity;
       return [...state];
     }
+    case 'EMPTY': {
+      return state=[];
+    }
 
     default:
       return state;

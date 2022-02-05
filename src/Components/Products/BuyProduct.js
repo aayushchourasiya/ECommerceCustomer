@@ -1,5 +1,5 @@
 import {Text, View, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Styles} from '../../assets/styles';
 import {BoxButton, ButtonLarge} from '../Reusable/';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,8 +7,8 @@ import {addToCart, removeFromCart} from '../../store/action';
 import {StylesLight} from '../../assets/stylesLight';
 
 export const BuyProduct = ({route, navigation}) => {
-  const {item} = route.params;
-  const [quantity, setQuantity] = useState(1);
+  const {item, itemWithNewQuantity} = route.params;
+  const [quantity, setQuantity] = useState(0);
   const [errorText, setErrorText] = useState(null);
 
   const theme = useSelector(state => state.theme);
@@ -17,6 +17,17 @@ export const BuyProduct = ({route, navigation}) => {
   const MainStyles = theme ? Styles : StylesLight;
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      cart.filter(object => {
+        if (item.id === object.item.id) {
+          itemWithNewQuantity.quantity =
+            itemWithNewQuantity.quantity - object.quantity;
+        }
+      });
+    });
+  }, []);
 
   const changeInitial = value => {
     switch (value) {
@@ -33,7 +44,7 @@ export const BuyProduct = ({route, navigation}) => {
       console.log(cartObject);
       if (cartObject.item.id === item.id) {
         isInCart++;
-        if (cartObject.quantity < item.quantity) {
+        if (cartObject.quantity <= item.quantity) {
           const index = cart.findIndex(
             obj => cartObject.item.id === obj.item.id,
           );
@@ -83,7 +94,7 @@ export const BuyProduct = ({route, navigation}) => {
           />
           <BoxButton value={quantity} disabled />
           <BoxButton
-            disabled={quantity >= item.quantity ? true : false}
+            disabled={quantity >= itemWithNewQuantity.quantity ? true : false}
             value="+"
             style={{marginLeft: 10}}
             onPress={() => changeInitial('+')}

@@ -1,38 +1,65 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Styles} from '../../assets/styles';
 import {ButtonLarge} from '../Reusable/';
 import {StylesLight} from '../../assets/stylesLight';
 import {useSelector} from 'react-redux';
 import {colors} from '../../assets/constants';
+import firestore from '@react-native-firebase/firestore';
 
 export const ProductDetails = ({route, navigation}) => {
   const theme = useSelector(state => state.theme);
   const cart = useSelector(state => state.cart);
   const MainStyles = theme ? Styles : StylesLight;
+  const [outOfStock, setOutOfStock] = useState(false);
+  const [quantityNotLessThanCart, setQuantityNotLessThanCart] = useState(false);
+  const [serverItem, setServerItem] = useState(null);
 
   const {item} = route.params;
 
-  const quantityCheck = () => {
-    let outOfStock = 0;
-    cart.filter(cartObject => {
-      if (cartObject.item.id === item.id) {
-        if (cartObject.quantity < item.quantity && item.quantity > 0) {
-          
-        } else {
-          outOfStock++;
-        }
-      }
-      else if(item.quantity <= 0){
-        outOfStock++;
-      }
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      quantityCheck();
     });
-    if (outOfStock>0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+    const quantityCheck = () => {
+      setOutOfStock(true);
+      firestore()
+        .collection('Users')
+        .where('role', '==', 'admin')
+        .get()
+        .then(query => {
+          query._docs?.filter(serverItem => {
+            serverItem._data.myProducts.filter(serverProduct => {
+              if (serverProduct.id === item.id) {
+                if (serverProduct.quantity <= 0) {
+                  setOutOfStock(true);
+                } else {
+                  setOutOfStock(false);
+                  setServerItem(serverProduct);
+                }
+              }
+            });
+          });
+        })
+        .catch(e => {
+          alert(e);
+        });
+
+      cart.filter(cartObject => {
+        if (cartObject.item.id === item.id) {
+          if (cartObject.quantity < item.quantity && item.quantity > 0) {
+            setQuantityNotLessThanCart(false);
+          } else {
+            setQuantityNotLessThanCart(true);
+          }
+        } else if (item.quantity <= 0) {
+            setQuantityNotLessThanCart(true);
+        } else {
+            setQuantityNotLessThanCart(false);
+        }
+      });
+    };
+  }, [cart]);
 
   return (
     <View style={MainStyles.mainBackground}>
@@ -47,16 +74,19 @@ export const ProductDetails = ({route, navigation}) => {
           <Text style={[MainStyles.textLarge, {marginBottom: 10}]}>
             {item.price}
           </Text>
-          {quantityCheck() && (
-            <Text style={[MainStyles.textMedium, {color: colors.red}]}>
-              Out of stock!
-            </Text>
-          )}
+          {outOfStock ||
+            (quantityNotLessThanCart && (
+              <Text style={[MainStyles.textMedium, {color: colors.red}]}>
+                Out of stock!
+              </Text>
+            ))}
           <ButtonLarge
-            disabled={quantityCheck()}
+            disabled={outOfStock || quantityNotLessThanCart}
             text="Buy Now"
             style={{padding: 10}}
-            onPress={() => navigation.navigate('BuyProduct', {item: item})}
+            onPress={() =>
+              navigation.navigate('BuyProduct', {item: item , itemWithNewQuantity: serverItem})
+            }
           />
         </View>
       </View>

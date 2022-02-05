@@ -33,6 +33,12 @@ const changeQuantityOfItem = newQuantity => {
   };
 };
 
+const emptyCart = () => {
+  return {
+    type: 'EMPTY',
+  }
+}
+
 const changeTheme = theme => {
   return {
     type: 'THEME',
@@ -45,6 +51,7 @@ export {
   currentUser,
   addToCart,
   removeFromCart,
+  emptyCart,
   changeTheme,
   changeQuantityOfItem,
 };

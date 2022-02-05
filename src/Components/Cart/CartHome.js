@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import {Styles} from '../../assets/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {BoxButton, ButtonLarge} from '../Reusable';
-import {changeQuantityOfItem, removeFromCart} from '../../store/action';
+import {changeQuantityOfItem, removeFromCart, emptyCart} from '../../store/action';
 import {colors} from '../../assets/constants';
 import {StylesLight} from '../../assets/stylesLight';
 import firestore from '@react-native-firebase/firestore';
@@ -25,6 +25,8 @@ export const CartHome = () => {
   const [newQuantity, setNewQuantity] = useState(0);
   const [modalItem, setModalItem] = useState([]);
   const [indexForChangeQuantity, setIndexForChangeQuantity] = useState(null);
+
+  const [buttonState,setButtonState] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
@@ -89,7 +91,7 @@ export const CartHome = () => {
                   myProducts: [...newProductsArray],
                 })
                 .then(() => {
-                  dispatch(removeFromCart({index: cartIndex}));
+                  setButtonState(false);
                   // let soldProductsArray = [...serverItem.soldProducts]
                   // firestore().collection('Users').doc(serverItem.id).update({
                   //   soldProducts : [...soldProductsArray,...user , newQuantity,serverProduct]
@@ -97,6 +99,7 @@ export const CartHome = () => {
                 })
                 .catch(e => {
                   alert(e);
+                  setButtonState(false);
                 });
             }
           });
@@ -106,16 +109,19 @@ export const CartHome = () => {
   };
 
   const checkOutFunction = () => {
+    setButtonState(true);
     firestore()
       .collection('Users')
       .where('role', '==', 'admin')
       .get()
       .then(query => {
         filterFunction(query._docs);
+        dispatch(emptyCart());
         alert('Thank you for shopping with us!');
       })
       .catch(e => {
         alert(e);
+        setButtonState(false)
       });
   };
 
@@ -185,6 +191,7 @@ export const CartHome = () => {
               text="CHECKOUT"
               iconName="doubleright"
               iconColor={colors.black}
+              disabled={buttonState}
               onPress={() => checkOutFunction()}
             />
           </View>
