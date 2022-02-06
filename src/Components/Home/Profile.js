@@ -24,6 +24,14 @@ export const Profile = ({navigation}) => {
     });
   }, [user]);
 
+  const changeEditState = () => {
+    setEdit(prev => !prev);
+    if (edit) {
+      nameRef.current.focus();
+    }
+    // // console.log(nameRef.current);
+  };
+
   const MainStyles = theme ? Styles : StylesLight;
   return (
     <View style={MainStyles.mainBackground}>
@@ -119,14 +127,8 @@ export const Profile = ({navigation}) => {
                   userOldState.fullName !== userState.fullName) ||
                 userOldState.email !== userState.email
                 ? () => alert('Changed')
-                : () => {
-                    setEdit(prev => !prev);
-                    // nameRef.current.focus();
-                  }
-              : () => {
-                  setEdit(prev => !prev);
-                  // nameRef.current.focus();
-                }
+                : () => changeEditState()
+              : () => changeEditState()
           }
         />
       </View>
